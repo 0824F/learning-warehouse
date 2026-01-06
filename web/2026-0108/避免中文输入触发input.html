@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="UTF-8" />
+    <title>避免中文输入触发input</title>
+    <style></style>
+  </head>
+
+  <body>
+    <input type="text" />
+
+    <script>
+      var input = document.querySelector("input");
+
+      let isComposite = false;
+
+      function search() {
+        console.log("search");
+      }
+
+      input.addEventListener("input", () => {
+        if (!isComposite) {
+          search();
+        }
+      });
+
+      input.addEventListener("compositionstart", () => {
+        isComposite = true;
+      });
+
+      input.addEventListener("compositionend", () => {
+        isComposite = false;
+
+        search();
+      });
+    </script>
+  </body>
+</html>
